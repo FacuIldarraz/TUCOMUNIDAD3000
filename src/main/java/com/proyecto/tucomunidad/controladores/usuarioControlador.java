@@ -32,7 +32,11 @@ public class usuarioControlador {
         return "usuarios.html";
     }
 
+<<<<<<< HEAD
     @GetMapping("/usuario_lista/usuario_eliminar/{mail}")
+=======
+    @GetMapping("/usuario_lista/usuario_eliminar/{id}")
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
     public String usuarioEliminar(ModelMap modelo, @PathVariable String mail) {
 
         try {
@@ -49,6 +53,7 @@ public class usuarioControlador {
         return "usuarios_lista.html";
     }
     
+<<<<<<< HEAD
      @GetMapping("/usuario_lista/usuario_update/{mail}")
     public String usuarioUpdate(ModelMap modelo, @PathVariable String mail) {
 
@@ -85,5 +90,8 @@ public class usuarioControlador {
         
         return "usuario.html";
     }
+=======
+    
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
     
 }

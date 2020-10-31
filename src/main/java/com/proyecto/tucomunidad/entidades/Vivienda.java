@@ -1,4 +1,8 @@
+<<<<<<< HEAD
     package com.proyecto.tucomunidad.entidades;
+=======
+package com.proyecto.tucomunidad.entidades;
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 
 import com.proyecto.tucomunidad.Enumeraciones.ViviendaTipo;
 import java.util.Date;

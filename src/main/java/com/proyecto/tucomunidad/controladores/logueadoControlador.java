@@ -18,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @PreAuthorize("hasRole('ROLE_REGULAR')")
@@ -84,6 +85,7 @@ public class logueadoControlador {
                 }
                 j++;
             }
+
             modelo.put("listahitos", listaHitos);
 
         } catch (ErrorServicio ex) {
@@ -92,7 +94,5 @@ public class logueadoControlador {
 
         return "logueado.html";
     }
-
-    
 
 }

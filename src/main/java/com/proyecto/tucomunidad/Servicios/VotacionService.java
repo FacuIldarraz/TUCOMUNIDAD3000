@@ -1,5 +1,9 @@
 package com.proyecto.tucomunidad.Servicios;
 
+<<<<<<< HEAD
+=======
+import com.proyecto.tucomunidad.Enumeraciones.Eleccion;
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 import com.proyecto.tucomunidad.Enumeraciones.Resultado;
 import com.proyecto.tucomunidad.Errores.ErrorServicio;
 import com.proyecto.tucomunidad.Repositorios.ComunidadRepo;
@@ -40,6 +44,7 @@ public class VotacionService { //registrar, modficar, baja, buscarPorId, alta
 
         return votacion;
     }
+<<<<<<< HEAD
     
     @Transactional
     public void agregarViviendaVotante(String idVotacion, String  idViviendaVota) throws ErrorServicio{
@@ -59,6 +64,27 @@ public class VotacionService { //registrar, modficar, baja, buscarPorId, alta
             if(!respuestaVotacion.isPresent()){
                 throw new ErrorServicio("No se encontró la votación solicitada");
             }else{
+=======
+
+    @Transactional
+    public void agregarViviendaVotante(String idVotacion, String idViviendaVota) throws ErrorServicio {
+
+        Optional<Votacion> respuestaVotacion = votacionRepo.findById(idVotacion);
+        Optional<Vivienda> respuestaVivienda = viviendaRepo.findById(idViviendaVota);
+        if (respuestaVotacion.isPresent() && respuestaVivienda.isPresent()) {
+            Votacion votacion = respuestaVotacion.get();
+            Vivienda viviendaVotante = respuestaVivienda.get();
+            List<Vivienda> votantesEfectivos = votacion.getVotantes();
+            votantesEfectivos.add(viviendaVotante);
+            votacion.setVotantes(votantesEfectivos);
+
+            votacion.setFechaModificacion(new Date());
+            votacionRepo.save(votacion);
+        } else {
+            if (!respuestaVotacion.isPresent()) {
+                throw new ErrorServicio("No se encontró la votación solicitada");
+            } else {
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
                 throw new ErrorServicio("No se encontró la vivienda solicitada");
             }
         }
@@ -160,6 +186,7 @@ public class VotacionService { //registrar, modficar, baja, buscarPorId, alta
             Votacion votacion = respuesta.get();
             if (new Date().after(votacion.getFechaFin())) {
                 if (votacion.getVotos().size() >= votacion.getQuorum()) {
+<<<<<<< HEAD
                     votacion.setResultado(Resultado.A_FAVOR);
                     proyectoService.proyectoAprobado(idProyecto);
                 } else {
@@ -173,6 +200,46 @@ public class VotacionService { //registrar, modficar, baja, buscarPorId, alta
         } else {
             throw new ErrorServicio("No se encontro la votacion.");
         }
+=======
+                    boolean v = resultadoVotacion(votacion.getVotos());
+                    if (v) {
+                        votacion.setResultado(Resultado.A_FAVOR);
+                        proyectoService.proyectoAprobado(idProyecto);
+                    } else {
+                        proyectoService.proyectoDesaprobado(idProyecto);
+                        votacion.setResultado(Resultado.EN_CONTRA);
+                    }
+
+                } else {
+                    proyectoService.proyectoDesaprobado(idProyecto);
+                    votacion.setResultado(Resultado.EN_CONTRA);
+                    darBaja(proyecto.getVotacion().getId());
+                    votacionRepo.save(votacion);
+                }
+            }
+        } else {
+            throw new ErrorServicio("No se encontro la votacion.");
+        }
+
+    }
+
+    public boolean resultadoVotacion(List<Voto> votos) {
+        int cont1 = 0;
+        int cont2 = 0;
+
+        for (Voto v : votos) {
+            if (v.getEleccion().equals(Eleccion.POSITIVO)) {
+                cont1++;
+            } else {
+                cont2++;
+            }
+        }
+        if (cont1 > cont2) {
+            return true;
+        } else {
+            return false;
+        }
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
     }
 
     @Transactional
@@ -205,7 +272,11 @@ public class VotacionService { //registrar, modficar, baja, buscarPorId, alta
         Vivienda vivienda = viviendaRepo.getOne(idVivienda);
 
         List< Proyecto> proyectos = proyectoRepo.buscarProyectosPorComunidad(comunidad.getId());
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         List<Proyecto> proyectosFaltantes = new ArrayList();
 
         try {

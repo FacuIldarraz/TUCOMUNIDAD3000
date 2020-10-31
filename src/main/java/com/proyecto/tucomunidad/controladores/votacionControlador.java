@@ -37,11 +37,18 @@ public class votacionControlador {
     private UsuarioService usuarioService;
     @Autowired
     private VotacionService votacionService;
+<<<<<<< HEAD
     @Autowired
     private ViviendaService viviendaService;
 
     @GetMapping("/votarProyecto")
     public String votacion(ModelMap modelo, Eleccion eleccion, @RequestParam String idProyecto) throws ErrorServicio {
+=======
+    
+
+    @GetMapping("/votarProyecto")
+    public String votacion(ModelMap modelo, Eleccion eleccion) throws ErrorServicio {
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
        
         Usuario usuario = usuarioService.getUsuario();
 
@@ -56,6 +63,7 @@ public class votacionControlador {
             System.out.println(e);
         }
 
+<<<<<<< HEAD
         Proyecto proyecto = proyectoService.buscarPorId(idProyecto);
 
         modelo.put("positivo", Eleccion.POSITIVO);
@@ -71,6 +79,26 @@ public class votacionControlador {
 
         return "votacion.html";
     }
+=======
+        modelo.put("listaNoVotados", proyectos);
+
+        return "votacion.html";
+    }
+    
+    @GetMapping("/votar/{idProyecto}")
+    public String votar(ModelMap modelo, @PathVariable String idProyecto) throws ErrorServicio{
+        System.out.println("IDPROYECTO          " + idProyecto);
+        Proyecto proyecto = proyectoService.buscarPorId(idProyecto);
+        modelo.put("nombre", proyecto.getNombre());
+        modelo.put("fechaFin", proyecto.getFechaFin());
+        modelo.put("id", proyecto.getId());
+        
+        modelo.put("positivo", Eleccion.POSITIVO);
+        modelo.put("negativo", Eleccion.NEGATIVO);
+        
+        return "votar.html";
+    }
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 
     @PostMapping("/proyectoVotado")
     public String votarProyecto(ModelMap modelo, Eleccion eleccion, @RequestParam String idProyecto) throws ErrorServicio {
@@ -80,7 +108,11 @@ public class votacionControlador {
         try {
             Voto voto = votoService.registrarVoto(eleccion, usuario.getVivienda().getId());
             votacionService.nuevoVoto(voto, proyecto.getVotacion().getId());
+<<<<<<< HEAD
             votacionService.agregarViviendaVotante(proyecto.getVotacion().getId(), idProyecto);
+=======
+            votacionService.agregarViviendaVotante(proyecto.getVotacion().getId(), usuario.getVivienda().getId());
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 
         } catch (ErrorServicio ex) {
             throw new ErrorServicio(ex.getMessage());
@@ -88,4 +120,9 @@ public class votacionControlador {
 
         return "logueado.html";
     }
+<<<<<<< HEAD
+=======
+    
+    
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 }

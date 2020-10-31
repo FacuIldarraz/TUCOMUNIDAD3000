@@ -143,6 +143,12 @@ public class ViviendaService {
 
     public List<Vivienda> listarViviendasPorComunidad(String idComunidad) {
         List<Vivienda> viviendas = viviendaRepo.listarViviendasPorComunidad(idComunidad);
+<<<<<<< HEAD
+=======
+        for (Vivienda vivienda : viviendas) {
+            System.out.println(vivienda.getId());
+        }
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         
         return viviendas;
     }

@@ -149,11 +149,16 @@ public class OficioService { //crear, modificar, eliminar, agregarValoración
             List<Valoracion> valoraciones = oficio.getValoraciones();
             Integer sumaCalificacion=0;
             for (Valoracion valoracion : valoraciones) {
+<<<<<<< HEAD
                 sumaCalificacion+=valoracion.getCalificacion();
             }            
             if(valoraciones.isEmpty()){
                 return null;
             }
+=======
+                sumaCalificacion=+valoracion.getCalificacion();
+            }            
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
             return sumaCalificacion/valoraciones.size();
         } else {
             throw new ErrorServicio("No se encontró el oficio solicitado");

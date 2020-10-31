@@ -37,6 +37,7 @@ public class HitoService{ //crear, modificar, eliminar
     @Autowired
     private ComunidadRepo comunidadRepo;
     
+<<<<<<< HEAD
     @Autowired
     private ProyectService proyectoService;
     
@@ -45,6 +46,10 @@ public class HitoService{ //crear, modificar, eliminar
 
         Date fecha = proyectoService.aFecha(fech);
         
+=======
+    @Transactional 
+    public void crear(Date fecha, String nombre, String descripcion, String idComunidad, MultipartFile archivo) throws ErrorServicio{     
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         validar(fecha, nombre, descripcion, idComunidad);
         
         Hito hito = new Hito();
@@ -56,15 +61,23 @@ public class HitoService{ //crear, modificar, eliminar
         hito.setComunidad(comunidadService.buscarPorId(idComunidad));
         hito.setFechaDeAlta(new Date());
         hito.setActivo(true);
+<<<<<<< HEAD
         System.out.println(hito.getNombre());
+=======
+   
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         hitoRepo.save(hito);
     }
     
     @Transactional
+<<<<<<< HEAD
     public void modificar(String id, String fech, String nombre, String descripcion, String idComunidad, MultipartFile archivo) throws ErrorServicio{
         
         Date fecha = proyectoService.aFecha(fech);
         
+=======
+    public void modificar(String id, Date fecha, String nombre, String descripcion, String idComunidad, MultipartFile archivo) throws ErrorServicio{
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         validar(fecha, nombre, descripcion, idComunidad);
         
         Optional<Hito> respuesta = hitoRepo.findById(id); 

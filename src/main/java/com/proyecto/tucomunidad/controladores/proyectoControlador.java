@@ -5,6 +5,10 @@ import com.proyecto.tucomunidad.Servicios.ComentarioService;
 import com.proyecto.tucomunidad.Servicios.FotoService;
 import com.proyecto.tucomunidad.Servicios.ProyectService;
 import com.proyecto.tucomunidad.Servicios.UsuarioService;
+<<<<<<< HEAD
+=======
+import com.proyecto.tucomunidad.Servicios.VotacionService;
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 import com.proyecto.tucomunidad.entidades.Comentario;
 import com.proyecto.tucomunidad.entidades.Foto;
 import com.proyecto.tucomunidad.entidades.Proyecto;
@@ -39,6 +43,11 @@ public class proyectoControlador {
     UsuarioService usuarioService;
     @Autowired
     ComentarioService comentarioService;
+<<<<<<< HEAD
+=======
+    @Autowired
+    VotacionService votacionService;
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 
     @GetMapping("/mostrar")
     public String mostrar(ModelMap modelo, @PathVariable String idcomunidad, HttpSession session) {
@@ -63,7 +72,15 @@ public class proyectoControlador {
                 i++;
             }
             modelo.put("lista", lista);
+<<<<<<< HEAD
 
+=======
+            for (Proyecto p : lista) {
+                proyectoService.estadoIniciado(p.getId());
+                proyectoService.estadoFinalizado(p.getId());
+                votacionService.cambiarResultado(p.getId());
+            }
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
             modelo.put("vertodos", "si");
             modelo.put("crear", null);
             modelo.put("editar", null);
@@ -84,10 +101,19 @@ public class proyectoControlador {
         try {
             proyecto = proyectoService.buscarPorId(idproyecto);
             modelo.put("proyecto", proyecto);
+<<<<<<< HEAD
+=======
+        } catch (ErrorServicio ex) {
+            Logger.getLogger(proyectoControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
             List<Comentario> comentarios = proyectoService.obtenerComentarioDeProyecto(idproyecto);
 
             modelo.put("comentarios", comentarios);
 
+<<<<<<< HEAD
             Integer progreso;
 
             progreso = proyectoService.progresoProyecto(idproyecto);
@@ -103,6 +129,29 @@ public class proyectoControlador {
             modelo.put("fotoprogreso", fotoprogreso);
             
             
+=======
+        } catch (ErrorServicio ex) {
+            Logger.getLogger(proyectoControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Integer progreso;
+        try {
+            progreso = proyectoService.progresoProyecto(idproyecto);
+            modelo.put("progreso", progreso);
+            Integer votosfavor = proyectoService.cantidadVotos(idproyecto);
+
+            modelo.put("votosfavor", votosfavor);
+        } catch (ErrorServicio ex) {
+            Logger.getLogger(proyectoControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        List<Foto> fotoprogreso;
+        try {
+            Integer dias=proyectoService.progresoProyecto(idproyecto);
+            modelo.put("dias",dias);
+            fotoprogreso = proyectoService.buscarPorId(idproyecto).getFotoProgreso();
+            modelo.put("fotoprogreso", fotoprogreso);
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         } catch (ErrorServicio ex) {
             Logger.getLogger(proyectoControlador.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -254,6 +303,7 @@ public class proyectoControlador {
             System.out.println("Ayudaaaaa");
             return "proyecto.html";
         }
+<<<<<<< HEAD
         
         
         try {
@@ -285,6 +335,9 @@ public class proyectoControlador {
         } catch (ErrorServicio ex) {
 
         }
+=======
+
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         List<Proyecto> lista = proyectoService.buscarProyectosPorComunidad(idcomunidad);
         modelo.put("lista", lista);
 
@@ -348,6 +401,7 @@ public class proyectoControlador {
             return "proyecto.html";
         }
 
+<<<<<<< HEAD
         try {
 
             List<Proyecto> lista = proyectoService.buscarProyectosPorComunidad(idcomunidad);
@@ -370,6 +424,10 @@ public class proyectoControlador {
         } catch (ErrorServicio ex) {
 
         }
+=======
+        List<Proyecto> lista = proyectoService.buscarProyectosPorComunidad(idcomunidad);
+        modelo.put("lista", lista);
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 
         modelo.put("session", session);
         modelo.put("vertodos", "si");

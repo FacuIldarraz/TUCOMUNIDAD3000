@@ -38,7 +38,11 @@
    background-size:contain;
    background-repeat:no-repeat;
    display:inline-block;
+<<<<<<< HEAD
    width:350px;height:300px;
+=======
+   width:250px;height:200px;
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
    -webkit-transition: all 100ms ease-in;
       -moz-transition: all 100ms ease-in;
            transition: all 100ms ease-in;
@@ -62,7 +66,11 @@ p{margin-bottom:.3em;}
 }
 
 .votacionClase {
+<<<<<<< HEAD
    padding-top: 1rem!Important;
+=======
+   padding-top: 3rem!Important;
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
    text-align: -webkit-center;
 }
 
@@ -70,6 +78,25 @@ p{margin-bottom:.3em;}
    padding-right: 190px!Important;
 }
 
+<<<<<<< HEAD
+=======
+.volver{
+   padding-top: 20px;
+   
+}
+.volverBoton {
+   border-radius: 15px;
+}
+
+.flow{
+   flex-flow: wrap;
+}
+
+.cartasBotton{
+   padding-bottom: 5rem!Important;
+}
+
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 
 
 

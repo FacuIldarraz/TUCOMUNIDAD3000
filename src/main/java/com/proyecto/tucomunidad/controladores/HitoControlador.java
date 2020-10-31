@@ -72,13 +72,16 @@ public class HitoControlador {
             }
             modelo.put("lista", lista);
 
+
             modelo.put("crear", null);
             modelo.put("editar", null);
             modelo.put("ver1", null);
             modelo.put("editar1", null);
 
         } catch (ErrorServicio ex) {
+
             System.out.println(ex.getMessage());
+
         }
         return "hitos.html";
     }
@@ -126,6 +129,7 @@ public class HitoControlador {
 
     @PostMapping("/creando")
     public String creando(ModelMap modelo, MultipartFile foto, @RequestParam String nombre, @RequestParam String descripcion,
+
             @RequestParam String fecha, @RequestParam String idcomunidad, HttpSession session) {
 
         try {
@@ -134,7 +138,7 @@ public class HitoControlador {
             modelo.put("vertodos", null);
             modelo.put("crear", "si");
             modelo.put("editar", null);
-            modelo.put("ver1", null);
+
         } catch (ErrorServicio ex) {
             modelo.put("error", ex.getMessage());
             modelo.put("fecha", fecha);
@@ -142,12 +146,25 @@ public class HitoControlador {
             modelo.put("descripcion", descripcion);
             modelo.put("idcomunidad", idcomunidad);
             modelo.put("foto", foto);
-            System.out.println(ex.toString());
+
+            modelo.put("session", session);
+            modelo.put("vertodos", null);
+            modelo.put("crear", "si");
+            modelo.put("editar", null);
+            modelo.put("ver1", null);
 
             return "hitos.html";
         }
+        modelo.put("session", session);
+        modelo.put("vertodos", "si");
+        modelo.put("crear", null);
+        modelo.put("editar", null);
+        modelo.put("ver1", null);
+        modelo.put("editar1", null);
+
 
         return "hitos.html";
     }
+
 
 }

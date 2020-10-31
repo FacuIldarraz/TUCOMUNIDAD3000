@@ -3,16 +3,23 @@ package com.proyecto.tucomunidad.controladores;
 
 import com.proyecto.tucomunidad.Enumeraciones.ViviendaTipo;
 import com.proyecto.tucomunidad.Errores.ErrorServicio;
+<<<<<<< HEAD
 import com.proyecto.tucomunidad.Servicios.ProyectService;
 import com.proyecto.tucomunidad.Servicios.UsuarioService;
 import com.proyecto.tucomunidad.Servicios.ViviendaService;
 import com.proyecto.tucomunidad.entidades.Proyecto;
 import com.proyecto.tucomunidad.entidades.Usuario;
+=======
+import com.proyecto.tucomunidad.Servicios.ViviendaService;
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 import com.proyecto.tucomunidad.entidades.Vivienda;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+<<<<<<< HEAD
 import javax.servlet.http.HttpSession;
+=======
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -32,17 +39,23 @@ public class viviendaControlador {
     @Autowired
     ViviendaService viviendaService;
     
+<<<<<<< HEAD
     @Autowired
     UsuarioService usuarioService;
     
     @Autowired
     ProyectService proyectoService;
     
+=======
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
      @GetMapping("/viviendas/mostrar/{idcomunidad}")
     public String vivienda(ModelMap modelo, @PathVariable String idcomunidad) throws ErrorServicio{
 
         List<Vivienda> viviendas = viviendaService.listarViviendasPorComunidad(idcomunidad);
+<<<<<<< HEAD
         modelo.put("masInfo", "si");
+=======
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         modelo.put("viviendas", viviendas);
         
         
@@ -62,6 +75,7 @@ public class viviendaControlador {
     }
     
     @PostMapping("/viviendas-creando")
+<<<<<<< HEAD
     public String viviendaCrear2(@RequestParam String idComunidad, @RequestParam String direccion, @RequestParam String claveVivienda, 
             @RequestParam ViviendaTipo tipo, @RequestParam boolean mascota, @RequestParam boolean duenoHabita, 
             @RequestParam Integer numeroHabitantes, MultipartFile foto, String dueno, String mascotita) {
@@ -89,11 +103,32 @@ public class viviendaControlador {
     public String viviendaMasInfo(ModelMap modelo, @PathVariable String id) {
         
         modelo.put("ver", "si");
+=======
+    public String viviendaCrear2(@RequestParam String idComunidad, @RequestParam String direccion, @RequestParam String claveVivienda, @RequestParam ViviendaTipo tipo, @RequestParam boolean mascota, @RequestParam boolean duenoHabita, @RequestParam Integer numeroHabitantes, MultipartFile foto) {
+ 
+        try { 
+            viviendaService.registrar(claveVivienda, direccion, idComunidad, tipo, foto, mascota, duenoHabita, numeroHabitantes);
+        } catch (ErrorServicio ex) {
+            Logger.getLogger(viviendaControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+           return "viviendas-exito.html";
+}
+    
+    @GetMapping("viviendas_masinfo/{viviendaid}")
+    public String viviendaMasInfo(ModelMap modelo, @PathVariable String viviendaid) {
+        
+        modelo.put("masInfo", "si");
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         modelo.put("crear", null);
         
         try {
             Vivienda vivienda;
+<<<<<<< HEAD
             vivienda = viviendaService.buscarPorId(id);
+=======
+            vivienda = viviendaService.buscarPorId(viviendaid);
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
             
             modelo.put("vivienda", vivienda);
             
@@ -104,6 +139,7 @@ public class viviendaControlador {
         
         return "viviendas.html";
     }
+<<<<<<< HEAD
     
         @GetMapping("/viviendas_eliminar/{id}")
     public String darbaja(ModelMap modelo, HttpSession session, @PathVariable String id) throws ErrorServicio {
@@ -132,4 +168,6 @@ public class viviendaControlador {
     }
     
     
+=======
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 }

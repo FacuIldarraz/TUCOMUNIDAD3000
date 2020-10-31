@@ -13,6 +13,10 @@ import com.proyecto.tucomunidad.entidades.Proyecto;
 import com.proyecto.tucomunidad.entidades.Usuario;
 import com.proyecto.tucomunidad.entidades.Vivienda;
 import com.proyecto.tucomunidad.entidades.Votacion;
+<<<<<<< HEAD
+=======
+import com.proyecto.tucomunidad.entidades.Voto;
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -94,7 +98,11 @@ public class ProyectService {
     public Date aFecha(String fecha) {
         Integer anio, mes, dia;
         anio = Integer.parseInt(fecha.substring(0, 4));
+<<<<<<< HEAD
         mes = Integer.parseInt(fecha.substring(5, 7));
+=======
+        mes = Integer.parseInt(fecha.substring(5, 7))-1;
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         dia = Integer.parseInt(fecha.substring(8));
         GregorianCalendar cal = new GregorianCalendar();
         cal.set(anio, mes, dia);
@@ -166,7 +174,11 @@ public class ProyectService {
         Optional<Proyecto> respuesta = proyectoRepositorio.findById(idProyecto);
         if (respuesta.isPresent()) {
             Proyecto proyecto = respuesta.get();
+<<<<<<< HEAD
             proyecto.setActivo(false);
+=======
+            proyecto.setActivo(true);
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
             proyectoRepositorio.save(proyecto);
         } else {
             throw new ErrorServicio("No se encontro el proyecto solicitado");
@@ -334,8 +346,14 @@ public class ProyectService {
             long diferenciaInicioHoy = milisec2 / 1000 / 60 / 60 / 24;
 
             //divido los dias y al resultado lo multiplico por 100
+<<<<<<< HEAD
             float division = (float) 100* diferenciaInicioHoy / diferenciaInicioFin;
             Integer resultado = (int) (division) ;
+=======
+            float division = (float) diferenciaInicioHoy / diferenciaInicioFin;
+            Integer resultado = (int) (division) * 100;
+
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
             return resultado;
         } else {
             throw new ErrorServicio("no se puede mostrar el progreso del proyecto ya que no existe");
@@ -431,10 +449,20 @@ public class ProyectService {
 
         if (respuesta.isPresent()) {
             Proyecto p = respuesta.get();
+<<<<<<< HEAD
 
             if (p.getFechaInicio() == new Date()) {
                 p.setEstado(Estado.INICIADO);
                 proyectoRepositorio.save(p);
+=======
+            
+            if (p.getFechaInicio().after(new Date())) {
+                if (p.getEstado().equals(Estado.APROBADO)) {
+                    p.setEstado(Estado.INICIADO);
+                    proyectoRepositorio.save(p);
+                }
+                
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
             }
 
         }

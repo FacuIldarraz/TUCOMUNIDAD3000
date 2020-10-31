@@ -65,7 +65,11 @@ public class UsuarioService implements UserDetailsService { //registrar, modfica
     @Transactional
     public void modificar(String mail, String nombre, String apellido, String clave1, String clave2, String telefono, MultipartFile archivo) throws ErrorServicio {
         validar(mail, nombre, apellido, clave1, clave2, telefono);
+<<<<<<< HEAD
         System.out.println(clave1+"   "+clave2);
+=======
+
+>>>>>>> 7c7c52edc2e4621bcdeeb98180a82e4ca58e2244
         Optional<Usuario> respuesta = usuarioRepo.findById(mail);
         if (respuesta.isPresent()) {
             Usuario usuario = respuesta.get();

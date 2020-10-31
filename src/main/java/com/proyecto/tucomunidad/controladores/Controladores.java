@@ -80,15 +80,19 @@ public class Controladores {
     }
 
     @PostMapping("/registro")
+
     public String registro(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
             @RequestParam String telefono, @RequestParam String idVivienda, @RequestParam String claveVivienda, @RequestParam String clave1,
             @RequestParam String clave2, MultipartFile foto, @RequestParam String idcomunidad) {
+
 
         try {
 
             usuarioService.registrar(mail, nombre, apellido, clave1, clave2, idVivienda, claveVivienda, telefono, foto);
 
         } catch (ErrorServicio ex) {
+            Logger.getLogger(Controladores.class.getName()).log(Level.SEVERE, null, ex);
+
             modelo.put("error", ex.getMessage());
             modelo.put("nombre", nombre);
             modelo.put("apellido", apellido);
@@ -107,7 +111,7 @@ public class Controladores {
             modelo.put("viviendas", vivienda);
 
             return "registro.html";
-        }
+
 
         return "index.html";
 
@@ -117,12 +121,14 @@ public class Controladores {
     public String editarPerfil(ModelMap modelo, @PathVariable String mail) {
 
         try {
+
             modelo.put("editar", "si");
             Usuario u = usuarioService.buscarPorId(mail);
             modelo.put("usuario", u);
             Usuario usuario = usuarioService.getUsuario();
             List<Vivienda> vivienda = viviendaService.listarViviendasPorComunidad(usuario.getIdcomunidad());
             modelo.put("viviendas", vivienda);
+
         } catch (ErrorServicio ex) {
             Logger.getLogger(Controladores.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -130,14 +136,19 @@ public class Controladores {
     }
 
     @PostMapping("/registro/editarPerfil")
+
     public String enviarDatos(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail,
             @RequestParam String telefono, @RequestParam String idVivienda, @RequestParam String clave1, @RequestParam String clave2,
             MultipartFile foto) throws ErrorServicio {
+
+    public String enviarDatos(ModelMap modelo, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String mail, @RequestParam String telefono, @RequestParam String idVivienda, @RequestParam String clave1, @RequestParam String clave2, MultipartFile foto) {
+
 
         try {
             usuarioService.modificar(mail, nombre, apellido, clave1, clave2, telefono, foto);
 
         } catch (ErrorServicio ex) {
+
             System.out.println("ERROR LINEA 134 CONTROLADORES");
             modelo.put("error", ex.getMessage());
             System.out.println(ex.getMessage());
@@ -151,5 +162,17 @@ public class Controladores {
         }
 
         return "redirect:/logueado";
+            Logger.getLogger(Controladores.class.getName()).log(Level.SEVERE, null, ex);
+            modelo.put("error", ex.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("apellido", apellido);
+            modelo.put("mail", mail);
+            modelo.put("telefono", telefono);
+            modelo.put("clave", clave1);
+            modelo.put("repetir clave", clave2);
+            modelo.put("foto", foto);
+        }
+
+        return "exito_registro.html";
     }
 }
