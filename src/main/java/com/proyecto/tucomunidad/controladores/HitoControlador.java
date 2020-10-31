@@ -1,0 +1,132 @@
+package com.proyecto.tucomunidad.controladores;
+
+import com.proyecto.tucomunidad.Errores.ErrorServicio;
+import com.proyecto.tucomunidad.Servicios.ComentarioService;
+import com.proyecto.tucomunidad.Servicios.FotoService;
+import com.proyecto.tucomunidad.Servicios.HitoService;
+import com.proyecto.tucomunidad.entidades.Foto;
+import com.proyecto.tucomunidad.entidades.Hito;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+@Controller
+//@PreAuthorize("hasAnyRole('ROLE_USUARIO_REGISTRADO')")
+@RequestMapping("/hitos")
+public class HitoControlador {
+
+    @Autowired
+    HitoService hitoService;
+    @Autowired
+    FotoService fotoService;
+
+    @Autowired
+    ComentarioService comentarioService;
+
+    @GetMapping("/mostrar/{idcomunidad}")
+    public String mostrar(ModelMap modelo, @PathVariable String idcomunidad, HttpSession session) {
+        modelo.put("session", session);
+
+        try {
+
+            List<Hito> lista = hitoService.buscarHitosPorComunidad(idcomunidad);
+            modelo.put("lista", lista);
+
+            modelo.put("vertodos", "si");
+            modelo.put("crear", null);
+            modelo.put("editar", null);
+            modelo.put("ver1", null);
+            modelo.put("editar1", null);
+
+        } catch (ErrorServicio ex) {
+
+        }
+        return "hitos.html";
+    }
+
+    @GetMapping("/masinfo/{idhito}")
+    public String masinfo(ModelMap modelo, @PathVariable String idcomunidad,
+            @PathVariable String idhito, HttpSession session) {
+        modelo.put("session", session);
+        Hito hito;
+        try {
+            hito = hitoService.buscarPorId(idhito);
+            modelo.put("hito", hito);
+        } catch (ErrorServicio ex) {
+            Logger.getLogger(proyectoControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        Foto foto;
+        try {
+            foto = hitoService.buscarPorId(idhito).getFoto();
+            modelo.put("foto", foto);
+        } catch (ErrorServicio ex) {
+            Logger.getLogger(proyectoControlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        modelo.put("vertodos", null);
+        modelo.put("crear", null);
+        modelo.put("editar", null);
+        modelo.put("ver1", "si");
+        modelo.put("editar1", null);
+        return "hitos.html";
+    }
+
+    @GetMapping("/crear/{idcomunidad}")
+    public String crear(ModelMap modelo, @PathVariable String idcomunidad) {
+        
+        modelo.put("idcomunidad", idcomunidad);
+
+        modelo.put("vertodos", null);
+        modelo.put("crear", "si");
+        modelo.put("editar", null);
+        modelo.put("ver1", null);
+        modelo.put("editar1", null);
+        return "hitos.html";
+    }
+
+    @PostMapping("/creando")
+    public String creando(ModelMap modelo, MultipartFile foto, @RequestParam String nombre, @RequestParam String descripcion,
+            @RequestParam Date fecha, @PathVariable String idcomunidad, HttpSession session) {
+        try {
+            hitoService.crear(fecha, nombre, descripcion, idcomunidad, foto);
+        } catch (ErrorServicio ex) {
+            modelo.put("error", ex.getMessage());
+            modelo.put("fecha", fecha);
+            modelo.put("nombre", nombre);
+            modelo.put("descripcion", descripcion);
+            modelo.put("idcomunidad", idcomunidad);
+            modelo.put("foto", foto);
+
+            modelo.put("session", session);
+            modelo.put("vertodos", null);
+            modelo.put("crear", "si");
+            modelo.put("editar", null);
+            modelo.put("ver1", null);
+
+            return "hitos.html";
+        }
+        modelo.put("session", session);
+        modelo.put("vertodos", "si");
+        modelo.put("crear", null);
+        modelo.put("editar", null);
+        modelo.put("ver1", null);
+        modelo.put("editar1", null);
+
+        return "hitos.html";
+    }
+
+
+}
